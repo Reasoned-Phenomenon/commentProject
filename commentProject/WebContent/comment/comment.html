@@ -3,23 +3,108 @@
 <head>
 <meta charset="UTF-8">
 <title>글목록페이지</title>
-<style>
+	<style>
+		* {
+			font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+		}
 
+	</style>
 
+	<script>
 
-</style>
+		window.onload = function () {
+			console.log(document.getElementById('commentList'));
+			loadCommentList();
+
+		}
+
+		//목록 조회 하는 함수.
+		function loadCommentList() {
+			let xhtp = new XMLHttpRequest();
+
+			xhtp.onload = function () {
+				
+				let listDiv = document.getElementById('commentList');
+
+				console.log(xhtp.responseText);
+				let data = JSON.parse(xhtp.responseText);
+				
+				for ( let i = 0 ; i < data.length ; i ++) {
+					let commentDiv = makeCommentView(data[i]); //{id:?, name:?, content:?}
+					listDiv.appendChild(commentDiv);
+				}
+
+				
+			}
+			
+			xhtp.open('get', '../CommentServlet?cmd=list');
+			xhtp.send();
+		}
+		
+		function makeCommentView(comment) {
+
+			let div = document.createElement('div');
+
+			div.setAttribute('id', comment.id);
+			div.setAttribute('class', 'comment');
+
+			let str = '<strong>' + comment.name + '</strong>' + comment.content
+					+ '<input type="button" value="수정" onclick="viewUpdateForm()">'
+					+ '<input type="button" value="삭제" onclick="confirmDeletion()">';
+			div.innerHTML = str;
+
+			return div;
+			
+		}
+
+		//등록 ajax 호출
+
+		function addComment() {
+			let name = document.addForm.name.value;
+			let content = document.addForm.content.value;
+			//console.log(name);
+
+			if ( name == "") {
+				window.alert('이름을 입력하세요!');
+				document.addForm.name.focus();
+				return;
+			}
+
+			if ( content == "") {
+				window.alert('내용을 입력하세요!');
+				document.addForm.content.focus();
+				return;
+			}
+
+			let xhtp = new XMLHttpRequest();
+			xhtp.onload = function () {
+				let data = JSON.parse(xhtp.responseText);
+				//console.log(data);
+				let commentDiv = makeCommentView(data); // {id:?, name:?, content:?}
+				document.getElementById('commentList').appendChild(commentDiv);
+			}
+
+			xhtp.open('post','../CommentServlet');
+			xhtp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xhtp.send('name='+name+'&content='+content+'&cmd=add');
+
+		}
+		
+	</script>
 </head>
+
 <body>
 	
-	<h5>comment/commnet.html</h5>
+	<h5>comment/comment.html</h5>
 	<div id='commentList'></div>
+	<hr>
 	<!-- 글 등록 화면 -->
 	
 	<div id='commnetAdd'>
 		<form action='' name='addForm'>
 			이름: <input type='text' name='name' size='10'><br>
 			내용: <textarea name='content' cols='20' rows='2'></textarea><br>
-			<input type='button' value='등록', onclick='addComment()'>
+			<input type='button' value='등록' onclick='addComment()'>
 		</form>
 	</div>
 	
@@ -29,8 +114,8 @@
 		<form action='' name='updateForm'> 
 			이름: <input type='text' name='name' size='10'><br>
 			내용: <textarea name='content' cols='20' rows='2'></textarea><br>
-			<input type='button' value='변경', onclick='updateComment()'>
-			<input type='button' value='취소', onclick='cancelComment()'>
+			<input type='button' value='변경' onclick='updateComment()'>
+			<input type='button' value='취소' onclick='cancelComment()'>
 		</form> 
 	</div>
 	
