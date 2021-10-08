@@ -104,11 +104,49 @@ public class CommentDAO extends DAO {
 	}
 	
 	//글 수정..
-	public void updateComment () {
+	public Comment updateComment (Comment comment) {
+		
+		connect();
+		String sql = "UPDATE comments SET name=?, content=? WHERE id=?";
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, comment.getName());
+			psmt.setString(2, comment.getContent());
+			psmt.setString(3, comment.getId());
+			int r = psmt.executeUpdate();
+			System.out.println(r + "건 변경.");
+			
+			return comment;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			disconnect();
+		}
+		
 		
 	}
 	
-	public void deleteComment() {
+	public String deleteComment(String id) {
+		
+		connect();
+		
+		try {
+			psmt = conn.prepareStatement("DELETE FROM comments WHERE id=?");
+			psmt.setString(1, id);
+			int r = psmt.executeUpdate();
+			System.out.println(r + "건 삭제.");
+			
+			return id;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			disconnect();
+		}
 		
 	}
 	
