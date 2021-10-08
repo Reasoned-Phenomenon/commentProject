@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>글목록페이지</title>
+<style>
+
+
+
+</style>
+</head>
+<body>
+	
+	<h5>comment/commnet.html</h5>
+	<div id='commentList'></div>
+	<!-- 글 등록 화면 -->
+	
+	<div id='commnetAdd'>
+		<form action='' name='addForm'>
+			이름: <input type='text' name='name' size='10'><br>
+			내용: <textarea name='content' cols='20' rows='2'></textarea><br>
+			<input type='button' value='등록', onclick='addComment()'>
+		</form>
+	</div>
+	
+	<!-- 글 수정 화면 디스플레이 none으로 숨겨두기--> 
+	
+	<div id='commentUpdate' style='display: none'>
+		<form action='' name='updateForm'> 
+			이름: <input type='text' name='name' size='10'><br>
+			내용: <textarea name='content' cols='20' rows='2'></textarea><br>
+			<input type='button' value='변경', onclick='updateComment()'>
+			<input type='button' value='취소', onclick='cancelComment()'>
+		</form> 
+	</div>
+	
+
+</body>
+</html>
