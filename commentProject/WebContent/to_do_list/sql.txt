@@ -1,0 +1,37 @@
+--삭제
+DROP TABLE tdl;
+DROP SEQUENCE tdl_seq;
+
+--시퀀스 생성
+CREATE SEQUENCE tdl_seq
+increment by 1
+start with 1
+nocache
+nocycle;
+
+--테이블 생성
+CREATE TABLE tdl (
+id number(4),
+content varchar2(100)
+);
+
+--조회
+SELECT * FROM tdl ORDER BY 1 DESC;
+SELECT * FROM user_sequences;
+
+--초기값
+insert into tdl(id,content)
+values(tdl_seq.nextval,'test1'); 
+
+insert into tdl(id,content)
+values(tdl_seq.nextval,'test2'); 
+
+commit;
+
+
+----
+--시퀀스 사용 예문
+--insert into tdl(id,content)
+--values(tdl_seq.nextval,?); 
+
+
