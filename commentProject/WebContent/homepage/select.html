@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <button>OK</button>
+    <p id="demo"></p>
+
+    <script>
+        //console.log(this);
+        //위
+        // xhtp.onload = function () {
+
+        //     data = xhtp.responseText;
+
+        //     xhtp2.onload = function () {
+
+        //         xhtp3.onload = function () {
+
+        //         }
+        //     }
+        // }
+        //console.log(this);
+        let btn = document.getElementsByTagName('button').item(0);
+        btn.onclick = function() {
+            //window.location.assign('http://www.daum.net');
+            //console.log(location.hostname);
+            //console.log(window.history);
+        }
+
+        //위의 xhtp를 여러겹 사용하는 것보다 간결. 읽기 좋음.
+        fetch('get.json')
+        .then(x => x.json())
+        .then(result => createPage(result))
+        .then();
+
+        function createPage(val) {
+            //console.log(val);
+        }
+
+        let div = document.createElement('div');
+        div.setAttribute('data-id',20);
+        div.setAttribute('data-name','Hong');
+
+        localStorage.setItem('user_id', 'admin'); //페이지에 키와 밸류 형식으로 저장
+        localStorage.setItem('data', 'hello');
+
+        document.querySelector('button').onclick = function () {
+            //console.log(localStorage.getItem('user_id'));
+            //console.log(localStorage.getItem('data'));
+        }
+
+
+        let obj = {name:'Hong',
+                    age:20,
+                    showName: function () {
+                        return this.name + ', ' + this.age;
+                    }
+                };
+
+        obj = new Object();
+        obj.name = 'Hwang';
+        obj.age = 23;
+        
+        obj['hobby'] = 'reading';
+
+
+        //console.log(obj);
+
+        let trueOrFalse = true;
+        console.log(typeof trueOrFalse); //boolean 타입
+        trueOrFalse = new Boolean(true);
+        console.log(typeof trueOrFalse); // object 타입. new 사용하면 오브젝트 됨.
+
+        const myObj = {
+            name: "John",
+            age: 30,
+            cars: [
+                    {name:"Ford", models:["Fiesta", "Focus", "Mustang"]},
+                    {name:"BMW", models:["320", "X3", "X5"]},
+                    {name:"Fiat", models:["500", "Panda"]}
+                ]
+        }
+        //console.log(myObj.cars[0].name);
+        //console.log(myObj.cars[0].models[1]);
+        
+        const person = {
+            name:'john',
+            age: function () {
+                return 30;
+            }
+        }
+        person.age = person.age.toString();
+
+        const json = JSON.stringify(person);
+
+        const obj2 = JSON.parse(json);
+        //console.log(obj2);
+        //console.log(obj2.age);
+
+        let fnc = obj2.age;
+        //console.log(fnc);
+
+        const person2 = {
+            firstName: "John",
+            lastName: "Doe",
+            language: "en",
+            get lang() {
+                return this.language;
+            },
+            set name (firstName) {
+                this.firstName = firstName;
+            }
+        };
+        person2.name = 'Hong'; //property처럼 사용.
+        //console.log(person2.firstName, person2.lang); //lang 다음에 () 없이 사용 -> 함수가 아니라 속성처럼 사용.
+
+    // Define an object
+    const obj3 = {counter : 0};
+    
+    // Define Setters and Getters
+    Object.defineProperty(obj3, "reset", {
+      get : function () {this.counter = 0;}
+    });
+    Object.defineProperty(obj3, "increment", {
+      get : function () {this.counter++;}
+    });
+    Object.defineProperty(obj3, "decrement", {
+      get : function () {this.counter--;}
+    });
+    Object.defineProperty(obj3, "add", {
+      set : function (value) {this.counter += value;}
+    });
+    Object.defineProperty(obj3, "subtract", {
+      set : function (value) {this.counter -= value;}
+    });
+    
+    // Play with counter:
+    obj3.reset; //obj.reset(); 하지 않음.
+    obj3.add = 5; //값이 5가 되는 것이 아니라, 함수에 따라서 +5가 되는 것.
+    obj3.subtract = 1;
+    obj3.increment;
+    obj3.decrement;
+    document.getElementById("demo").innerHTML = obj3.counter;
+
+    const father = {
+        firstName: 'kildong',
+        lastName: 'Hong',
+        age: 30
+    };
+    const mother = {
+        firstName: 'heeyoung',
+        lastName: 'Hwang',
+        age: 27
+    }; //선언할때마다 필드를 입력해줘야함.
+
+    function Person3(first, last, age, eye) {
+        this.firstName = first;
+        this.lastName = last;
+        this.age = age;
+        this.eyeColor = eye;
+        this.name = function () {
+            return this.firstName + ', ' + this.lastName;
+        }
+    }
+
+    mother.gender = 'Female';
+    Person3.prototype.gender = 'Male'; //원형에 담음.
+
+    const son = new Person3('민석','홍', 3, '검정'); //코드가 간결해짐.
+    const daughter = new Person3('민주','홍',3,'검정');
+    daughter.gender = 'Female';
+
+    console.log(father.age);
+    console.log(son.age, son.gender, son.name());
+    console.log(daughter.age, daughter.gender, daughter.name());
+
+    class Person4 {
+        constructor(firstName, lastName, age) { //java와 약간 다름.
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.age = age;
+        }
+
+        showName() {
+            return this.firstName + ', ' + this.lastName;
+        }
+    }
+
+    let lee = new Person4('순신', '이', 30);
+    console.log(lee.showName());
+
+
+    </script>
+
+
+
+</body>
+</html>
