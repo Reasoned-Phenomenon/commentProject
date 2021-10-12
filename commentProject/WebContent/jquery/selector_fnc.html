@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery/selector_fnc.html</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        //$(document).ready(function () { 아래 ( $(function () { )와 같음.
+        $(function () {
+            $('button').click(findFnc);
+            
+        });
+
+        function findFnc () {
+            let trVal = $('tbody>tr');
+
+            $(trVal).find('td:nth-child(1)').css('background-color','yellow'); // 각 tr의 첫번째 td 선택 -> 배경색 변경
+            $(trVal).find('input:checked').parent().css('background-color','blue');
+
+            //javascript로 동일한 기능 구현.
+            // let trVal2 = document.querySelectorAll('tbody>tr>td:nth-child(1)');
+            // console.log(trVal2);
+            // for ( let tr of trVal2) {
+            //     tr.style.backgroundColor = 'yellow';
+            // }
+
+            // $('tbody>tr>td:contains(jpg)').css('color','red');
+            $(trVal).find('td:contains(jpg)').css('color','red'); //위와 동일.
+
+            let ct = $(trVal).find('input:checked').parent().next().contents(); 
+            console.log(ct);
+            
+            //교과서 211p
+            //<div id="show"><td class="wrap">hello</td></div>
+            //children -> <td> 태그만 가져오는 것
+            //contents -> 하위요소 전부('<td class="wrap">hello</td>') 가져옴. 
+
+            //nodeValue -> hello
+            //node : elementNode, attributeNode, textNode로 세분화. 각 node에는 type가 있음.
+            //nodeType=> 1 : elementNode,    2 : attributeNode,     3 : textNode
+
+            //let node = $('#show').contents() -> node 기준으로 3개의 node가 있음.(td, td의 class, text)
+            //if(nodeType == 1) -> td 태그 라는 의미. <td>
+            //if(nodeType == 2) -> td의 클래스 attribute 라는 의미. class="wrap"
+            //if(nodeType == 3) -> 텍스트라는 의미. hello
+            
+        }
+
+        function filterFnc() {
+
+            let checkVal = $('tbody>tr>td>input');
+            console.log(checkVal);
+
+            $(checkVal).filter(':checked').parent().parent().css('background-color','yellow');
+            $(checkVal).filter(function (idx, ele) {
+                if ( idx % 2 == 0 ) {
+                    return true;
+                }
+            // }).parent().parent().css('color','red');
+            }).parentsUntil('tbody').css('color','red'); //위와 같음. tbody 전까지의 parent
+
+            let checkVal2 = $('tbody>tr>td');
+
+            $(checkVal2).filter(':has(input)').css('border','2px solid red');
+
+        }
+
+    </script>
+</head>
+<body>
+
+    <div id="show"></div>
+    <button>클릭</button>
+
+    <script>
+        fetch('coffee.json') //arrow function
+        .then(x => x.json()) // .then(function (x) { return x.json()}) 와 같음.
+        .then(data => createTable(data)); // .then(function(data) { createTable(data)}) 와 같음.
+
+        function createTable(data) {
+           let table = document.createElement('table');
+           table.setAttribute('border','1');
+           let tbody = document.createElement('tbody');
+
+           table.appendChild(tbody);
+
+           //tbody -> tr 생성
+            data.forEach((obj, idx) => {
+                console.log(obj, idx);
+                
+                let tr = document.createElement('tr');
+                let checkTd = document.createElement('td');
+                if (idx == 3) {
+
+                    checkTd.innerHTML = '<input type="checkbox" checked>'
+                } else {
+
+                    checkTd.innerHTML = '<input type="checkbox">'
+                }
+                tr.appendChild(checkTd);
+
+                for ( let field in obj) {
+                    let td = document.createElement('td');
+                    td.innerHTML = obj[field];
+                    //td.appendChild();               -----> appendChild로는 안 되나?
+                    tr.appendChild(td);
+                }
+
+                tbody.appendChild(tr);
+
+            });
+            document.getElementById('show').appendChild(table);
+            
+
+        }
+    </script>
+</body>
+</html>

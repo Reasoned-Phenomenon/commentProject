@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery/array_map.html</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script>
+        const apple = {
+            name: 'apple',
+            price: 1000,
+        };
+        const banana = {
+            name: 'banana',
+            price: 2000,
+        };
+        
+        const cherry = {
+            name: 'cherry',
+            price: 3000,
+        };
+
+        const fruits = [apple, banana, cherry];
+
+        $(document).ready(function () {
+            // map : true 이거나 false 상관없이 값을 반환.
+            let newFruits = $.map(fruits, function (obj,ind) {
+                //console.log(obj, ind);
+                let newFruit = {};
+                newFruit.fruitName = obj.name;
+                newFruit.fruitPrice = obj.price;
+                newFruit.fruitOrder = ind;
+                
+                return newFruit;
+                // return true;
+                //return false;
+            });
+            
+            // true인 값만 반환.
+            let otherFruits = $.grep(newFruits, function (obj,ind) {  //map일 경우 true를 반환, grep는 obj를 반환.
+                // console.log(obj, ind);
+
+                if (ind > 1 ) {
+                    return true;
+                }
+
+                //return ind; //0,1,2 -> 0은 false기 때문에 반환 안함.
+                //return obj;
+            });
+
+            $(newFruits).each(function (idx, obj) {
+                //console.log(obj);
+            });
+
+            $(otherFruits).each(function (idx, obj) {
+                //console.log(idx, obj);
+                console.log(obj);
+            });
+
+        });
+    </script>
+</head>
+<body>
+    <div id="show"></div>
+</body>
+</html>

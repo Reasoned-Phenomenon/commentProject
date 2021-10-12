@@ -69,14 +69,14 @@
 
         //jquery : 방법 2 document의 하위요소인 tr에 이벤트를 넣어주면 이후에 생성된 tr에도 이벤트 적용.
         // 책에서는 라이브 이벤트 등록 방식이라고 설명.
-        
-        // $(document).on('click', 'tr', function (evnet) {
-        //     //window.alert( $(event.target).parent().children().eq(1).html() ); //tr 클릭시 2번째 값 출력
-        //     window.alert( $(event.target).html() ); // td 클릭시 td 출력
-        // })   
-        $(table).on('click', 'tr', function (evnet) { // document가 아니라 tr의 상위인 table을 넣어도 됨.
+
+        $(document).on('click', 'tr', function (evnet) {
+            //window.alert( $(event.target).parent().children().eq(1).html() ); //tr 클릭시 2번째 값 출력
             window.alert( $(event.target).html() ); // td 클릭시 td 출력
         })   
+        // $(table).on('click', 'tr', function (evnet) { // document가 아니라 tr의 상위인 table을 넣어도 됨.
+        //     window.alert( $(event.target).html() ); // td 클릭시 td 출력
+        // })   
         $(document).on('mouseover', 'tr', function (evnet) {
             $(event.target).parent().css('background-color', 'yellow') ; // tr에 마우스 오버시 백그라운드 컬러 노란색
         })   
@@ -96,7 +96,7 @@
             );
 
             //$(table).append($tr);
-            table.appendChild($tr.get(0)); //get() : jquery 오브젝트 -> js 오브젝트
+            tbody.appendChild($tr.get(0)); //get() : jquery 오브젝트 -> js 오브젝트
 
         })
     </script>
