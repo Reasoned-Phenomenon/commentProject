@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!--
+    <script src="jquery-3.6.0.js"></script>
+    <script src="jquery-3.6.0.min.js"></script> 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    위는 모두 동일하나, 주소를 사용하는 것이 유용함.(경로 지정 등에서) 앞으로 수업시간에는 구글CDN 사용.
+-->
+
+    <script>
+        $(document).ready(function() {
+
+            let p_html = $('div > p').html();
+            console.log(p_html);
+
+            let p = $('<p />'); //$는 j쿼리 오브젝트. let p = document.createElement('p'); //document의 오브젝트.
+            $(p).html('hello, world'); // p.innerHTML = 'hello, world' 와 동일.
+            console.log(p);
+
+            $('body').append(p);
+            
+            let p2=$('<p class="first" style="color: red;">hello, world</p>');
+            $(p2).css('background-color','yellow');
+            console.log(p2);
+            
+            $('body').append(p2);
+        });
+
+
+
+        
+    </script>
+
+</head>
+<body>
+    <div>
+        <p>hello,world</p>
+    </div>
+
+
+</body>
+</html>
