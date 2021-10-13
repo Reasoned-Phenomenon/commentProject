@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery_ajax/ajax.html</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: 'get.json', //요청
+                type: 'get', //요청 방식 : get / post 안적으면 get이 디폴트.
+                data: 'id=user',//서버로 전송할 data  ex) 'id=user&pass=1234'
+                dataType: 'json', //요청한 결과값이 어떤 형식으로 올지 . html, text, json, xml....
+                // success: function (result) { //성공했을때 실행할 함수.
+                //     console.log(typeof result); //오브젝트로 자동으로 파싱해서 넘겨줌.
+                //     showData(result);
+                // },
+                success:  showData, //위와 같은 역할( 콜백함수 )
+                error: function (reject) { //에러가 발생했을때 실행할 함수.
+                    //console.log('에러발생 : ' + reject.statusText);
+                    console.error('에러발생 : ' + reject.statusText);
+                }
+            });
+        })
+        
+        function showData(data) {
+            console.log(data);
+            let table, tbody, tr, td;
+            let thead = '<thead><tr><th>ID</th><th>FName</th><th>LName</th><th>Email</th><th>Gender</th></tr></thead>';
+            table = $('<table id="tbl"/>').attr('border','1').addClass('t');
+            tbody = $('<tbody />');
+            $(table).append(tbody); //data 영역
+            $(table).append(thead); //head 영역.
+
+            for( let row of data) {
+                tr = $('<tr />').append(
+                    $('<td />').html(row.id),
+                    $('<td />').html(row.first_name),
+                    $('<td />').html(row.last_name),
+                    $('<td />').html(row.email),
+                    $('<td />').html(row.gender)
+                );
+                $(tbody).append(tr);
+            }
+
+            $('#show').append(table);
+        }
+
+    </script>
+</head>
+<body> 
+    <form action="a.html" style="border: 1px dotted red; padding: 3px;" onsubmit="submitFrm(event)"> <!--이떄의 event는 실체가 있는 것이어서, 다른 단어 쓰면 안 됨.-->
+        ID: <input type="number" name="userId" id="userId">
+        FName: <input type="text" name="fname" id="fname">
+        LName: <input type="text" name="lname" id="lname">
+        email: <input type="email" name="email" id="email" value="111@111.com"><br>
+        gender: <input type="radio" name="gender" id="male" value="Male" checked>Male
+                <input type="radio" name="gender" id="female" value="Female">Female
+        <br>
+        <input type="submit" value="Save">        
+        <input type="reset" value="Reset">
+    </form>
+    <hr>
+    <div id="show"></div>
+
+    <script>
+        function submitFrm (e) {
+            e.preventDefault();
+            let userId = $('#userId').val();
+            let fname = $('#fname').val();
+            let lname = $('#lname').val();
+            let email = $('#email').val();
+            let gender = $('input[name="gender"]:checked').val();
+
+            //ajax 호출
+            $.ajax({
+                url: '입력서블릿',
+                type: 'post',
+                //data: 'id='+userId+'&fname='+fname... -> 철자 틀릴 수 있으니 아래처럼 배열로 넘겨줘도 좋음.
+                data: {
+                    id: userId,
+                    firstName: fname,
+                    lastName: lname,
+                    email: email,
+                    gender: gender
+                },
+                dataType: 'json',
+                success: function (result) {
+                    //화면에 결과 반영
+                    let tr = $('<tr />').append(
+                        $('<td />').html(userId),
+                        $('<td />').html(fname),
+                        $('<td />').html(lname),
+                        $('<td />').html(email),
+                        $('<td />').html(gender)
+                    );
+                    $('#tbl>tbody').append(tr);
+                },
+                error: function (reject) {
+                    //경고메세지
+                }
+            });
+
+
+            
+
+            
+        }
+    </script>
+</body>
+</html>

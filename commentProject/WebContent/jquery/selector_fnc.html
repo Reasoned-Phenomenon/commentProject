@@ -9,9 +9,24 @@
     <script>
         //$(document).ready(function () { 아래 ( $(function () { )와 같음.
         $(function () {
-            $('button').click(findFnc);
-            
+            $('button:eq(0)').click(findFnc); //요소찾기
+            $('button').eq(1).click(function () { //체크라인 요소 삭제.
+                $('tbody>tr>td>input').filter(':checked').parentsUntil('tbody').remove();
+            });
         });
+
+        //내가 만든 것
+        function delFnc () {
+            let tr = $('tbody>tr')
+            $(tr).find('input:checked').parent().parent().remove();
+            
+            //내 생각에는, find는 집합안에서 조건에 맞는 것을 찾는 것이고
+            //내 생각에는, filter는 여러개 중에서 '조건'에 안 맞는 것을 제외하는 것.
+            // console.log($(tr).find('input:checked')); 
+            // let ip = $('tbody>tr>td>input')
+            // console.log($(ip).filter(':checked'));
+            
+        }
 
         function findFnc () {
             let trVal = $('tbody>tr');
@@ -73,6 +88,7 @@
 
     <div id="show"></div>
     <button>클릭</button>
+    <button>삭제</button>
 
     <script>
         fetch('coffee.json') //arrow function

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery/mod.html</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#show').html('<b>Hello, World</b>'); //js의 innerHTML
+            let val = $('#show').html();
+            console.log(val);
+            $('#show2').text('<b>Hello, World</b>'); // js의 innerText
+
+            $('#show').attr('class','show');
+            $('#show').removeAttr('data-id');
+
+            $('#show').addClass('half');
+            $('#show').toggleClass('tog'); //toggleClass는 클래스가 없으면 추가, 있으면 삭제.
+            
+            if($('#show').hasClass('tog')) {
+                $('#show').toggleClass('tog');
+            }
+
+            $('input[name="name"]').val('honggildong'); 
+            console.log($('#userId').val());
+
+            let t_f = $('#climbing').prop('checked'); 
+            console.log(t_f);
+
+            $('#cooking').prop('checked',false);
+
+            //val / prop / attr 비교.
+            //val / prop-> t/f 속성 변경. / attr
+
+            let idx = $('#option').prop('selectedIndex')
+            console.log(idx);
+
+        });
+    </script>
+</head>
+<body>
+    <div id="show" data-id="first"></div>
+    <div id="show2"></div>
+
+    <input type="text" name="name" id="name" value="홍길동">
+    <input type="text" name="userId" id="userId" value="hong"><br>
+    취미: 
+    <input type="checkbox" name="hobby" id="climbing" value="등산" checked>등산<br>
+    <input type="checkbox" name="hobby" id="cooking"value="요리" checked>요리<br>
+    <input type="checkbox" name="hobby" id="cycling"value="자전거" checked>자전거<br>
+
+    <select id="option">
+        <option value="">option1</option>
+        <option value="">option2</option>
+        <option value="" selected>option3</option>
+    </select>
+
+    <div>Hello</div>
+
+    
+</body>
+</html>
