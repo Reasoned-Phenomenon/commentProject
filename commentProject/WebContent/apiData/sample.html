@@ -6,35 +6,105 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>apiData/sample.html</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript"></script>
+	<script>
+	
+		let position;
+	
+		$.ajax({
+			url:'../SampleDataServlet',
+			dataType: 'json',
+			type: 'get',
+			success: function (result) {
+	
+				position = result;
+	
+				showList();
+	
+			},
+			error: function (result) {
+				console.log(result);
+			}
+					
+		});
+	
+		function showList() {
+
+			$('#show').html('');
+
+			let table = $('<table border="1">');
+			$(table).append('<tr><th>센터이름</th><th>주소</th></tr>');
+
+				for(let i = 0 ; i < position.data.length ; i ++) {
+					
+					let tr = $('<tr />').append(
+
+						$('<td />').append(position.data[i].centerName),
+						$('<td />').append(position.data[i].address)
+					)
+
+					$(table).append(tr);
+				}
+			
+			$('#show').append(table);
+
+		}
+
+		function showSido (city) {
+	
+			$('#show').html('');
+	
+			let table = $('<table border="1">');
+			$(table).append('<tr><th>센터이름</th><th>주소</th></tr>');
+				
+			for(let i = 0 ; i < position.data.length ; i ++) {
+				let ad = position.data[i].address.substring(0,2);
+	
+				
+				if (ad == city ) {
+					
+					let tr = $('<tr />');
+						
+					let td1 = $('<td />').append(position.data[i].centerName);
+					let td2 = $('<td />').append(position.data[i].address);
+	
+					$(tr).append(td1);
+					$(tr).append(td2);
+	
+					$(table).append(tr);
+	
+				};
+	
+			};
+	
+			$('#show').append(table);
+	
+		}
+	
+	
+	
+	</script>
 
 </head>
 <body>
+
+	<button id='sido' value="전국" onclick="showList()">전국</button>
+	<button id='sido' value="서울" onclick="showSido('서울')">서울</button>
+	<button id='sido' value="대구"onclick="showSido('대구')">대구</button>
+	<button id='sido' value="부산"onclick="showSido('부산')">부산</button>
+	<button id='sido' value="인천"onclick="showSido('인천')">부산</button>
+	<button id='sido' value="대전"onclick="showSido('대전')">대전</button>
+	<button id='sido' value="울산"onclick="showSido('울산')">울산</button>
+	<button id='sido' value="경기"onclick="showSido('경기')">경기</button>
+	<button id='sido' value="경북"onclick="showSido('경북')">경상북도</button>
+	<button id='sido' value="경상"onclick="showSido('경상')">경상남도</button>
+	<button id='sido' value="경북"onclick="showSido('경북')">경북</button>
+	<button id='sido' value="충청"onclick="showSido('충청')">충청북도</button>
+	<button id='sido' value="충남"onclick="showSido('충남')">충청남도</button>
+	<button id='sido' value="강원"onclick="showSido('강원')">강원</button>
+	<button id='sido' value="전라"onclick="showSido('전라')">전라</button>
+	<button id='sido' value="제주"onclick="showSido('제주')">제주</button>
+
 	<div id="show"></div>
-	<button id='seoul' value="seoul">서울</button>
-	<button id='daegu' value="daegu">대구</button>
 
-<script>
-	$.ajax({
-		url:'../SampleDataServlet',
-		dataType: 'json',
-		type: 'get',
-		success: function (result) {
-			console.log(result);		
-		},
-		error: function (result) {
-			console.log(result);
-		}
-				
-	});
-
-	function showList() {
-		let btn = document.getElementsByTagName('button');
-		
-
-	}
-
-
-
-</script>
 </body>
 </html>

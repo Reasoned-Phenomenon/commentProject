@@ -23,7 +23,7 @@ public class SampleDataServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/xml;charset=UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		
 		String hostUrl = "https://api.odcloud.kr/api/15077586/v1/centers?page=1&perPage=284&serviceKey=J1iKzUvTVqcFCVxqpleYhdt1GIsEP40ONa4slM5d1aIgGDV4GU7IXV%2BHQGq4O%2Fm8pFm6GPTRrPXgbNxz4fV3pA%3D%3D\r\n";
