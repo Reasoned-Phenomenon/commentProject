@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cookie/storage.html</title>
+</head>
+<body>
+    
+    <button id='set'>SetStorage</button>
+    <button id='clear'>Clear</button>
+    <button id='check'>Check</button>
+
+    <script>
+        document.getElementById('set').onclick = function () {
+
+            // localStorage.setItem('username','hongkildong');
+            // localStorage.setItem('userid','hong');
+
+            sessionStorage.setItem('username','hongkildong');
+            sessionStorage.setItem('userid','hong');
+
+        }
+
+        document.getElementById('clear').onclick = function () {
+
+            // localStorage.setItem('username', null);
+            // localStorage.setItem('userid', null);
+
+            //localStorage.clear();
+
+            // localStorage.removeItem('username');
+            // localStorage.removeItem('userid');
+            
+            sessionStorage.removeItem('username');
+            sessionStorage.removeItem('userid');
+        }
+
+        document.getElementById('check').onclick = function () {
+
+            // let userName = localStorage.getItem('username');
+            // let userId = localStorage.getItem('userid');
+
+            let userName = sessionStorage.getItem('username');
+            let userId = sessionStorage.getItem('userid');
+
+            console.log(`name: ${userName}, id: ${userId}`);
+
+        }
+
+        
+
+    </script>
+
+</body>
+</html>

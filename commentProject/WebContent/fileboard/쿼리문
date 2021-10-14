@@ -1,0 +1,11 @@
+CREATE TABLE fileboard (
+num number primary key,
+author varchar2(50),
+title varchar2(100),
+filename varchar2(100),
+day date
+);
+
+SELECT * FROM fileboard;
+
+commit;
