@@ -28,8 +28,8 @@ public class AddFileServlet extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		
-		System.out.println(request);
-		System.out.println(request.getContentType());
+		//System.out.println(request);
+		//System.out.println(request.getContentType());
 		
 		ServletContext context = getServletContext();
 		String saveDir = context.getRealPath("upload");
